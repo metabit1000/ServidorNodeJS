@@ -4,7 +4,6 @@ var ObjectID = mongodb.ObjectID;
 var crypto = require('crypto');
 var express = require('express');
 var bodyParser = require('body-parser');
-require('dotenv').config();
 
 //PASSWORD
 
@@ -152,7 +151,7 @@ MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
 		})
 
 		//Start web server
-		app.listen(process.env.PORT || 3000, ()=> {
+		app.listen(3000, ()=> {
 			console.log('Conectado con el servidor de MongoDB, Web service corriendo en el puerto 3000');
 		})
 	}
