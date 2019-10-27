@@ -4,6 +4,7 @@ var ObjectID = mongodb.ObjectID;
 var crypto = require('crypto');
 var express = require('express');
 var bodyParser = require('body-parser');
+require('dotenv').config();
 
 //PASSWORD
 
