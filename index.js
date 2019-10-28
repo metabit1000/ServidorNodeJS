@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var MongoClient = mongodb.MongoClient;
 
 //Conexion URL
-var url = 'mongodb+srv://ptiproyecto:ptiproyecto@cluster0-ljjks.mongodb.net/test?retryWrites=true&w=majority'        //'mongodb://localhost:27017' //27017 es el puerto por default para mongoDB
+var url = 'mongodb://localhost:27017' //27017 es el puerto por default para mongoDB
 
 MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
 	if (err)
