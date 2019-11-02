@@ -60,21 +60,21 @@ MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
 			var password = hash_data.passwordHash; //Guardamos el password hash
 			var salt = hash_data.salt; //Guardamos el salt
 
-			var name = post_data.name;
 			var email = post_data.email;
+			var user = post_data.user;
 
 			var insertJson = {
-				'email': email,
+				'user': user,
 				'password': password,
 				'salt': salt,
-				'name': name
+				'email': email
 			};
 			var db = client.db('AlexDB');
 
-			db.collection('login').find({'email':email}).count(function(err,number) {
+			db.collection('login').find({'user':user}).count(function(err,number) {
 				if (number != 0) {
-					response.json('Email ya existe');
-					console.log('Email ya existe');
+					response.json('User ya existe');
+					console.log('User ya existe');
 				}
 				else {
 					//insertamos datos
@@ -89,19 +89,19 @@ MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
 		app.post('/login',(request,response,next)=>{
 			var post_data = request.body;
 
-			var email = post_data.email;
+			var user = post_data.user;
 			var userPassword = post_data.password;
 
 			var db = client.db('AlexDB');
 
-			db.collection('login').find({'email':email}).count(function(err,number) {
+			db.collection('login').find({'user':user}).count(function(err,number) {
 				if (number == 0) {
-					response.json('Email no existe');
-					console.log('Email no existe');
+					response.json('La cuenta que intenta ingresar, no existe');
+					console.log('La cuenta que intenta ingresar, no existe');
 				}
 				else {
 					//insertamos datos
-					db.collection('login').findOne({'email':email},function(err,user) {
+					db.collection('login').findOne({'user':user},function(err,user) {
 						var salt = user.salt; //Obtenemos salt del usuario
 						var hashed_password = checkHashPassword(userPassword,salt).passwordHash;
 						var encrypted_password = user.password; //Obtenemos pass del usuario
