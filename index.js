@@ -146,6 +146,7 @@ MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
 	                	strJson = '{"telfs":[' + strJson + "]}";
 						response.json(strJson);
 					}
+					else response.json('No hay contactos')
 	        	}
     		});
 		})
