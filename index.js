@@ -130,7 +130,7 @@ MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
  
 			collection.find({'user':user}).toArray(function (err, result) {
 	        	if (err) {
-	            	response.json(err);
+	            	response.json('No hay contactos')
 	        	} 
 	        	else {
               		var intCount = result.length;
