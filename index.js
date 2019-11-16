@@ -100,7 +100,6 @@ MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
 					console.log('La cuenta que intenta ingresar, no existe');
 				}
 				else {
-					//insertamos datos
 					db.collection('login').findOne({'user':user},function(err,user) {
 						var salt = user.salt; //Obtenemos salt del usuario
 						var hashed_password = checkHashPassword(userPassword,salt).passwordHash;
@@ -136,19 +135,44 @@ MongoClient.connect(url,{useNewUrlParser: true},function(err,client) {
               		var intCount = result.length;
               		if (intCount > 0) {
 	                	var strJson = "";
-	                	for (var i = 0; i < intCount;) {
-	                  		strJson += '{"telf":"' + result[i].telf + '"}'
-	                  		i = i + 1;
-	                  		if (i < intCount) {
-	                    		strJson += ',';
-	                  		}
-	                	}
-	                	strJson = '{"telfs":[' + strJson + "]}";
+	                	strJson += '{"telf":"' + result[0].telf + '"}'
 						response.json(strJson);
 					}
 					else response.json('No hay contactos')
 	        	}
     		});
+		})
+
+		app.post('/addContacto',(request,response,next)=>{
+			var post_data = request.body;
+
+			var user = post_data.user;
+			var telf = post_data.telf;
+
+			var insertJson = {
+				'user': user,
+				'telf': telf
+			};
+
+			var db = client.db('AlexDB');
+			
+			db.collection('contactos').find({'user':user}).count(function(err,number) {
+				if (number != 0) {
+					//modifico si existe ya el usuario en la collection
+					db.collection('contactos').update({'user':user},insertJson,function(error,res) {
+						if (error) throw error;
+						response.json('Contacto modificado correctamente');
+						console.log('Contacto modificado correctamente');
+					})
+				}
+				else {
+					//inserto el usuario y el telf nuevo
+					db.collection('contactos').insertOne(insertJson,function(error,res) {
+						response.json('Contando registrado correctamente');
+						console.log('Contando registrado correctamente');
+					})
+				}
+			})
 		})
 
 		//Start web server
