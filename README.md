@@ -1,2 +1,2 @@
 # ServidorNodeJS
-Servidor dockerizado para el Proyecto PTI creado con NodeJS y MongoDB
+Servidor dockerizado creado con NodeJS y MongoDB para la asignatura PTI, Universitat Politècnica de Catalunya (UPC) 
