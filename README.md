@@ -1,2 +1,2 @@
-# Servidor con NodeJS + MongoDB
-Servidor dockerizado creado con NodeJS y MongoDB para la asignatura PTI, Universitat Politècnica de Catalunya (UPC) 
+# Server with NodeJS + MongoDB
+Docked server created with NodeJs and MongoDB for the subject PTI, Universitat Politècnica de Catalunya (UPC)
